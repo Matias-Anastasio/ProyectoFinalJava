@@ -1,8 +1,10 @@
 package com.proyecto.proyecto.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.proyecto.DTO.UsuarioDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,5 +36,16 @@ public class Usuario {
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     @JsonIgnore
     private List<Turno> turnos;
+
+
+    public UsuarioDTO toDto(){
+        UsuarioDTO uDto = new UsuarioDTO();
+        uDto.setNombre(this.nombre);
+        uDto.setApellido(this.apellido);
+        uDto.setTelefono(this.telefono);
+        uDto.setEmail(this.email);
+        uDto.setTurnos(this.getTurnos().stream().map(turno -> turno.toTurnoDeUsuarioDto()).collect(Collectors.toList()));
+        return uDto;
+    }
 }
 

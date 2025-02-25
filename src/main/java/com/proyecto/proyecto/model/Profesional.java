@@ -1,6 +1,9 @@
 package com.proyecto.proyecto.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.proyecto.proyecto.DTO.ProfesionalDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,5 +42,15 @@ public class Profesional {
 
     @OneToMany(mappedBy = "profesional",fetch = FetchType.EAGER)
     private List<Turno> turnos;
+
+    public ProfesionalDTO toDto(){
+        ProfesionalDTO pDto = new ProfesionalDTO();
+        pDto.setNombre(nombre);
+        pDto.setApellido(apellido);
+        pDto.setEspecialidad(especialidad);
+        pDto.setTratamientos(tratamientos.stream().map(t->t.toTratamientoDeProfesionalDto()).collect(Collectors.toList()));
+        pDto.setTurnos(turnos.stream().map(t->t.toTurnoDeProfesionalDto()).collect(Collectors.toList()));
+        return pDto;
+    }
 }
 

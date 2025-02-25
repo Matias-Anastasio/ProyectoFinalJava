@@ -1,6 +1,10 @@
 package com.proyecto.proyecto.model;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import com.proyecto.proyecto.DTO.TratamientoDTO;
+import com.proyecto.proyecto.DTO.TratamientoDeProfesionalDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,5 +33,24 @@ public class Tratamiento {
     
     @ManyToMany(mappedBy = "tratamientos", fetch = FetchType.EAGER)
     private List<Profesional> profesionales;
+
+    public TratamientoDeProfesionalDTO toTratamientoDeProfesionalDto(){
+        TratamientoDeProfesionalDTO tDto = new TratamientoDeProfesionalDTO();
+        tDto.setNombre(this.nombre);
+        tDto.setDescripcion(this.descripcion);
+        tDto.setPrecio(this.precio);
+        tDto.setDuracion(this.duracion);
+        return tDto;
+    }
+
+    public TratamientoDTO toDto(){
+        TratamientoDTO tDto = new TratamientoDTO();
+        tDto.setNombre(this.nombre);
+        tDto.setDescripcion(this.descripcion);
+        tDto.setPrecio(this.precio);
+        tDto.setDuracion(this.duracion);
+        tDto.setProfesionales(this.profesionales.stream().map(p->p.toDto()).collect(Collectors.toList()));
+        return tDto;
+    }
 }
 

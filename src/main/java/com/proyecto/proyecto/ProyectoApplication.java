@@ -1,8 +1,8 @@
 package com.proyecto.proyecto;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -50,6 +50,7 @@ public class ProyectoApplication implements CommandLineRunner {
 		usuario1.setApellido("Pérez");
 		usuario1.setEmail("juan.perez@gmail.com");
 		usuario1.setTelefono("123456789");
+		
 
 		Usuario usuario2 = new Usuario();
 		usuario2.setNombre("María");
@@ -62,6 +63,7 @@ public class ProyectoApplication implements CommandLineRunner {
 		tratamiento1.setDescripcion("Eliminación de impurezas y células muertas");
 		tratamiento1.setDuracion(60);
 		tratamiento1.setPrecio(50.0);
+		
 
 		Tratamiento tratamiento2 = new Tratamiento();
 		tratamiento2.setNombre("Masaje Relajante");
@@ -106,7 +108,8 @@ public class ProyectoApplication implements CommandLineRunner {
 		pago2.setMonto(turno2.getTratamiento().getPrecio());
 		pago2.setMetodoDePago("Transferencia bancaria");
 		pago2.setFechaDePago(LocalDate.of(2025, 2, 25));
-
+		
+		
 		usuarioService.guardarUsuario(usuario1);
 		usuarioService.guardarUsuario(usuario2);
 		profesionalService.guardarProfesional(profesional1);
@@ -117,6 +120,11 @@ public class ProyectoApplication implements CommandLineRunner {
 		turnoService.guardarTurno(turno2);
 		pagoService.guardarPago(pago1);
 		pagoService.guardarPago(pago2);
+		
+		// profesional1.setTratamientos(List.of(tratamiento1));
+		// profesional2.setTratamientos(List.of(tratamiento2));
+		// usuario1.setTurnos(List.of(turno1));
 	}
+
 
 }

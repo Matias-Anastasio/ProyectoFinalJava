@@ -3,6 +3,7 @@ package com.proyecto.proyecto.model;
 import java.time.LocalDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.proyecto.DTO.PagoDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -35,4 +36,13 @@ public class Pago {
     @JoinColumn(name = "turno_id", nullable = false)
     @JsonIgnore
     private Turno turno;
+
+    public PagoDTO toDto(){
+        PagoDTO tDto = new PagoDTO();
+        tDto.setFechaDePago(fechaDePago);
+        tDto.setMetodoDePago(metodoDePago);
+        tDto.setMonto(monto);
+        tDto.setTurno(turno.toDto());
+        return tDto;
+    }
 }

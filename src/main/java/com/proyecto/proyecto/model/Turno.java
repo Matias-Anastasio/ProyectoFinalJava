@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.proyecto.proyecto.DTO.TurnoDTO;
+import com.proyecto.proyecto.DTO.TurnoDeProfesionalDTO;
+import com.proyecto.proyecto.DTO.TurnoDeUsuarioDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -47,5 +50,37 @@ public class Turno {
 
     @OneToOne(mappedBy = "turno", fetch = FetchType.EAGER)
     private Pago pago;
+
+
+    public TurnoDeUsuarioDTO toTurnoDeUsuarioDto(){
+        TurnoDeUsuarioDTO tDto = new TurnoDeUsuarioDTO();
+        tDto.setFecha(this.fecha);
+        tDto.setHora(this.hora);
+        tDto.setEstado(this.estado);
+        tDto.setProfesional(this.profesional.getApellido() + " " + this.profesional.getNombre());
+        tDto.setTratamiento(this.tratamiento.getNombre());
+        return tDto;
+    }
+
+    public TurnoDeProfesionalDTO toTurnoDeProfesionalDto(){
+        TurnoDeProfesionalDTO tDto = new TurnoDeProfesionalDTO();
+        tDto.setFecha(this.fecha);
+        tDto.setHora(this.hora);
+        tDto.setEstado(this.estado);
+        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
+        tDto.setTratamiento(this.tratamiento.getNombre());
+        return tDto;
+    }
+
+    public TurnoDTO toDto(){
+        TurnoDTO tDto = new TurnoDTO();
+        tDto.setFecha(this.fecha);
+        tDto.setHora(this.hora);
+        tDto.setEstado(this.estado);
+        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
+        tDto.setProfesional(this.profesional.getApellido() + " " + this.profesional.getNombre());
+        tDto.setTratamiento(this.tratamiento.getNombre());
+        return tDto;
+    }
 }
 
