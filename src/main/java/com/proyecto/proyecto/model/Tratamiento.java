@@ -1,25 +1,33 @@
 package com.proyecto.proyecto.model;
 
+import java.util.List;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-//Representa los articulos disponibles en la tienda
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "PRODUCTO")
-public class Producto {
+@NoArgsConstructor
+@Table(name = "tratamiento")
+public class Tratamiento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombre;
-    private String descripcion;
-    private double precio;
-    private int stock;
 
+    private String nombre;
+    private double precio;
+    private String descripcion;
+    private double duracion;
+    
+    @ManyToMany(mappedBy = "tratamientos", fetch = FetchType.EAGER)
+    private List<Profesional> profesionales;
 }
+

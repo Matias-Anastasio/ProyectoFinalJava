@@ -10,29 +10,34 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
-
-//Almacena los productos comprados en un pedido
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "DETALLE_DEL_PEDIDO")
-public class DetalleDelPedido {
+@NoArgsConstructor
+@Table(name = "profesional")
+public class Profesional {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int cantidad;
-    private double precioUnitario;
+
+    private String nombre;
+    private String apellido;
+    private String especialidad;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "DETALLE_PRODUCTO",
-        joinColumns = @JoinColumn(name = "DETALLE_DEL_PEDIDO_ID"),
-        inverseJoinColumns = @JoinColumn(name = "PRODUCTO_ID")
+        name = "profesional_tratamiento",
+        joinColumns = @JoinColumn(name = "profesional_id"),
+        inverseJoinColumns = @JoinColumn(name = "tratamiento_id")
     )
-    private List<Producto> productos;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "PEDIDO_ID")
-    private Pedido pedido;
+    private List<Tratamiento> tratamientos;
+
+    @OneToMany(mappedBy = "profesional",fetch = FetchType.EAGER)
+    private List<Turno> turnos;
 }
+
