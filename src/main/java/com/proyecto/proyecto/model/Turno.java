@@ -3,7 +3,6 @@ package com.proyecto.proyecto.model;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proyecto.proyecto.DTO.TurnoDTO;
 import com.proyecto.proyecto.DTO.TurnoDeProfesionalDTO;
 import com.proyecto.proyecto.DTO.TurnoDeUsuarioDTO;
@@ -36,12 +35,10 @@ public class Turno {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false)
-    @JsonIgnore
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profesional_id", nullable = false)
-    @JsonIgnore
     private Profesional profesional;
 
     @ManyToOne(fetch = FetchType.EAGER)

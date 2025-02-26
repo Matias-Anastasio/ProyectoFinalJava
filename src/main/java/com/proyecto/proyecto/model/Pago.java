@@ -2,7 +2,6 @@ package com.proyecto.proyecto.model;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proyecto.proyecto.DTO.PagoDTO;
 
 import jakarta.persistence.Entity;
@@ -34,7 +33,6 @@ public class Pago {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turno_id", nullable = false)
-    @JsonIgnore
     private Turno turno;
 
     public PagoDTO toDto(){

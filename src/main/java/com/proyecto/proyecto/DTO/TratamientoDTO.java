@@ -12,5 +12,5 @@ public class TratamientoDTO {
     private double precio;
     private String descripcion;
     private double duracion;
-    private List<ProfesionalDTO> profesionales;
+    private List<ProfesionalDatosDTO> profesionales;
 }

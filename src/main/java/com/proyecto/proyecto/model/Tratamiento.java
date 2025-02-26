@@ -49,7 +49,7 @@ public class Tratamiento {
         tDto.setDescripcion(this.descripcion);
         tDto.setPrecio(this.precio);
         tDto.setDuracion(this.duracion);
-        tDto.setProfesionales(this.profesionales.stream().map(p->p.toDto()).collect(Collectors.toList()));
+        tDto.setProfesionales(this.profesionales.stream().map(p->p.toProfesionalDatosDto()).collect(Collectors.toList()));
         return tDto;
     }
 }

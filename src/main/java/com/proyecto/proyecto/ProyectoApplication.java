@@ -109,21 +109,20 @@ public class ProyectoApplication implements CommandLineRunner {
 		pago2.setMetodoDePago("Transferencia bancaria");
 		pago2.setFechaDePago(LocalDate.of(2025, 2, 25));
 		
+		profesional1.setTratamientos(List.of(tratamiento1));
+		profesional2.setTratamientos(List.of(tratamiento2));
 		
 		usuarioService.guardarUsuario(usuario1);
 		usuarioService.guardarUsuario(usuario2);
-		profesionalService.guardarProfesional(profesional1);
-		profesionalService.guardarProfesional(profesional2);
 		tratamientoService.guardarTratamiento(tratamiento1);
 		tratamientoService.guardarTratamiento(tratamiento2);
+		profesionalService.guardarProfesional(profesional1);
+		profesionalService.guardarProfesional(profesional2);
 		turnoService.guardarTurno(turno1);
 		turnoService.guardarTurno(turno2);
 		pagoService.guardarPago(pago1);
 		pagoService.guardarPago(pago2);
 		
-		// profesional1.setTratamientos(List.of(tratamiento1));
-		// profesional2.setTratamientos(List.of(tratamiento2));
-		// usuario1.setTurnos(List.of(turno1));
 	}
 
 

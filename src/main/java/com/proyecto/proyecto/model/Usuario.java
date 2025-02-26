@@ -3,7 +3,6 @@ package com.proyecto.proyecto.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.proyecto.proyecto.DTO.UsuarioDTO;
 
 import jakarta.persistence.Entity;
@@ -34,7 +33,6 @@ public class Usuario {
     private String telefono;
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
-    @JsonIgnore
     private List<Turno> turnos;
 
 

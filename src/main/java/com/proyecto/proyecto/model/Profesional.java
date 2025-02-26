@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.proyecto.proyecto.DTO.ProfesionalDTO;
+import com.proyecto.proyecto.DTO.ProfesionalDatosDTO;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -50,6 +51,14 @@ public class Profesional {
         pDto.setEspecialidad(especialidad);
         pDto.setTratamientos(tratamientos.stream().map(t->t.toTratamientoDeProfesionalDto()).collect(Collectors.toList()));
         pDto.setTurnos(turnos.stream().map(t->t.toTurnoDeProfesionalDto()).collect(Collectors.toList()));
+        return pDto;
+    }
+
+    public ProfesionalDatosDTO toProfesionalDatosDto(){
+        ProfesionalDatosDTO pDto = new ProfesionalDatosDTO();
+        pDto.setNombre(nombre);
+        pDto.setApellido(apellido);
+        pDto.setEspecialidad(especialidad);
         return pDto;
     }
 }
