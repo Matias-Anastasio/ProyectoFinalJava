@@ -1,14 +1,25 @@
 package com.proyecto.proyecto.service;
 
+import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.proyecto.proyecto.DTO.TurnoDTO;
+import com.proyecto.proyecto.DTO.TurnoNuevoDTO;
+import com.proyecto.proyecto.model.EstadoPago;
+import com.proyecto.proyecto.model.EstadoTurno;
+import com.proyecto.proyecto.model.Pago;
+import com.proyecto.proyecto.model.Profesional;
+import com.proyecto.proyecto.model.Tratamiento;
 import com.proyecto.proyecto.model.Turno;
+import com.proyecto.proyecto.model.Usuario;
 import com.proyecto.proyecto.repository.TurnoRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class TurnoService {
@@ -16,11 +27,82 @@ public class TurnoService {
     @Autowired
     private TurnoRepository turnoRepository;
 
-    public List<TurnoDTO> buscarTurnos(){
-        return turnoRepository.findAll().stream().map(turno->turno.toDto()).collect(Collectors.toList());
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @Autowired
+    private ProfesionalService profesionalService;
+
+    @Autowired
+    private TratamientoService tratamientoService;
+
+    public List<TurnoDTO> buscarTurnos() {
+        return turnoRepository.findAll().stream().map(turno -> turno.toDto()).collect(Collectors.toList());
     }
 
-    public void guardarTurno(Turno turno){
+    public void guardarTurno(Turno turno) {
         turnoRepository.save(turno);
+    }
+
+    @Transactional
+    public void agendarTurno(TurnoNuevoDTO turnoNuevoDTO) {
+
+        // verifico que el usuario, profesional y tratamiento existan
+        Usuario usuario = usuarioService.buscarUsuarioPorId(turnoNuevoDTO.getUsuarioId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        Profesional profesional = profesionalService.buscarProfesionalPorId(turnoNuevoDTO.getProfesionalId())
+                .orElseThrow(() -> new RuntimeException("Profesional no encontrado"));
+
+        Tratamiento tratamiento = tratamientoService.buscarTratamientoPorId(turnoNuevoDTO.getTratamientoId())
+                .orElseThrow(() -> new RuntimeException("Tratamiento no encontrado"));
+
+        Optional<Turno> turnoExistente = turnoRepository.findByFechaAndHoraAndProfesionalAndEstadoNot(
+                turnoNuevoDTO.getFecha(), turnoNuevoDTO.getHora(), profesional, EstadoTurno.CANCELADO);
+
+        // valido que no exista otro turno con el mismo profesional en el horario
+        // seleccionado
+        if (turnoExistente.isPresent()) {
+            throw new RuntimeException("Ya existe un turno en este horario para este profesional.");
+        }
+
+        // valido que el profesional realice dicho tratamiento
+        if (!profesional.getTratamientos().contains(tratamiento)) {
+            throw new RuntimeException("El profesional seleccionado no realiza dicho tratamiento.");
+        }
+
+        // valido que el nuevo turno no se solape con otros
+        LocalTime horaFinal = turnoNuevoDTO.getHora().plusMinutes(tratamiento.getDuracion());
+
+        List<Turno> turnosExistentes = turnoRepository.findByFechaAndProfesionalAndEstadoNot(
+                turnoNuevoDTO.getFecha(), profesional, EstadoTurno.CANCELADO);
+
+        for (Turno tExistente : turnosExistentes) {
+
+            boolean seSolapan = (
+            // El nuevo turno comienza antes de que termine el turno existente
+            (turnoNuevoDTO.getHora()
+                    .isBefore(tExistente.getHora().plusMinutes(tExistente.getTratamiento().getDuracion())))
+                    &&
+                    (horaFinal.isAfter(tExistente.getHora())));
+
+            if (seSolapan) {
+                throw new RuntimeException("El horario solicitado se solapa con otro turno.");
+            }
+        }
+
+        Turno nuevoTurno = new Turno();
+        nuevoTurno.setFecha(turnoNuevoDTO.getFecha());
+        nuevoTurno.setHora(turnoNuevoDTO.getHora());
+        nuevoTurno.setUsuario(usuario);
+        nuevoTurno.setProfesional(profesional);
+        nuevoTurno.setEstado(EstadoTurno.PENDIENTE);
+        Pago pago = new Pago();
+        pago.setEstado(EstadoPago.PENDIENTE);
+        pago.setTurno(nuevoTurno);
+        nuevoTurno.setPago(pago);
+        nuevoTurno.setTratamiento(tratamiento);
+
+        turnoRepository.save(nuevoTurno);
     }
 }

@@ -7,6 +7,7 @@ import com.proyecto.proyecto.DTO.TurnoDTO;
 import com.proyecto.proyecto.DTO.TurnoDeProfesionalDTO;
 import com.proyecto.proyecto.DTO.TurnoDeUsuarioDTO;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +32,7 @@ public class Turno {
 
     private LocalDate fecha;
     private LocalTime hora;
-    private String estado;
+    private EstadoTurno estado;
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id", nullable = false)
@@ -45,7 +46,7 @@ public class Turno {
     @JoinColumn(name = "tratamiento_id", nullable = false)
     private Tratamiento tratamiento;
 
-    @OneToOne(mappedBy = "turno", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "turno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Pago pago;
 
 

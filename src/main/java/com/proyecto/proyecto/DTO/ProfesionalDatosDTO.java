@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class ProfesionalDatosDTO {
-    String nombre;
-    String apellido;
-    String especialidad;
+    private String nombre;
+    private String apellido;
+    private String especialidad;
 }

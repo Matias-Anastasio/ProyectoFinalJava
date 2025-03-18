@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.proyecto.proyecto.DTO.UsuarioDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +32,8 @@ public class Usuario {
     private String apellido;
     private String email;
     private String telefono;
+    @Column(unique = true, nullable = false)
+    private String username;
     
     @OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
     private List<Turno> turnos;
@@ -42,7 +45,8 @@ public class Usuario {
         uDto.setApellido(this.apellido);
         uDto.setTelefono(this.telefono);
         uDto.setEmail(this.email);
-        uDto.setTurnos(this.getTurnos().stream().map(turno -> turno.toTurnoDeUsuarioDto()).collect(Collectors.toList()));
+        uDto.setUsername(this.username);
+        uDto.setTurnos(getTurnos().stream().map(turno -> turno.toTurnoDeUsuarioDto()).collect(Collectors.toList()));
         return uDto;
     }
 }

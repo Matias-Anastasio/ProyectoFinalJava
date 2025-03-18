@@ -29,7 +29,7 @@ public class Tratamiento {
     private String nombre;
     private double precio;
     private String descripcion;
-    private double duracion;
+    private int duracion;
     
     @ManyToMany(mappedBy = "tratamientos", fetch = FetchType.EAGER)
     private List<Profesional> profesionales;

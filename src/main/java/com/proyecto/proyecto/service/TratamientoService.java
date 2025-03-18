@@ -1,6 +1,7 @@
 package com.proyecto.proyecto.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,9 @@ public class TratamientoService {
 
     public void guardarTratamiento(Tratamiento tratamiento){
         tratamientoRepository.save(tratamiento);
+    }
+
+    public Optional<Tratamiento> buscarTratamientoPorId(long id){
+        return tratamientoRepository.findById(id);
     }
 }
