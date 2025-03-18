@@ -36,6 +36,9 @@ public class TurnoService {
     @Autowired
     private TratamientoService tratamientoService;
 
+    @Autowired
+    PagoService pagoService;
+
     public List<TurnoDTO> buscarTurnos() {
         return turnoRepository.findAll().stream().map(turno -> turno.toDto()).collect(Collectors.toList());
     }
@@ -99,10 +102,21 @@ public class TurnoService {
         nuevoTurno.setEstado(EstadoTurno.PENDIENTE);
         Pago pago = new Pago();
         pago.setEstado(EstadoPago.PENDIENTE);
+        pago.setMonto(tratamiento.getPrecio());
         pago.setTurno(nuevoTurno);
         nuevoTurno.setPago(pago);
         nuevoTurno.setTratamiento(tratamiento);
 
         turnoRepository.save(nuevoTurno);
+    }
+
+    public void cancelarTurno(Long idTurno) {
+        Turno turno = turnoRepository.findById(idTurno)
+                .orElseThrow(() -> new RuntimeException("Turno no encontrado"));
+
+        turno.setEstado(EstadoTurno.CANCELADO);
+        pagoService.cancelarPago(turno.getPago().getId());
+
+        turnoRepository.save(turno);
     }
 }
