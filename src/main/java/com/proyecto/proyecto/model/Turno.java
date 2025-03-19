@@ -35,7 +35,7 @@ public class Turno {
     private EstadoTurno estado;
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuario;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -65,8 +65,12 @@ public class Turno {
         tDto.setFecha(this.fecha);
         tDto.setHora(this.hora);
         tDto.setEstado(this.estado);
-        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
         tDto.setTratamiento(this.tratamiento.getNombre());
+        if(usuario!=null){
+        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
+        }else{
+            tDto.setUsuario("Usuario no disponible");
+        }
         return tDto;
     }
 
@@ -75,7 +79,11 @@ public class Turno {
         tDto.setFecha(this.fecha);
         tDto.setHora(this.hora);
         tDto.setEstado(this.estado);
-        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
+        if(usuario!=null){
+            tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
+            }else{
+                tDto.setUsuario("Usuario no disponible");
+            }
         tDto.setProfesional(this.profesional.getApellido() + " " + this.profesional.getNombre());
         tDto.setTratamiento(this.tratamiento.getNombre());
         return tDto;
