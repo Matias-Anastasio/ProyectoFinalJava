@@ -119,4 +119,13 @@ public class TurnoService {
 
         turnoRepository.save(turno);
     }
+
+    // public void confirmarTurno(long idTurno) {
+    //     Turno turno = turnoRepository.findById(idTurno)
+    //             .orElseThrow(() -> new RuntimeException("Turno no encontrado"));
+
+    //     turno.setEstado(EstadoTurno.CONFIRMADO);
+
+    //     turnoRepository.save(turno);
+    // }
 }

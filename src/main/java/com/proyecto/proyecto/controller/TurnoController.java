@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.proyecto.proyecto.DTO.TurnoNuevoDTO;
-import com.proyecto.proyecto.model.Turno;
 import com.proyecto.proyecto.service.TurnoService;
 
 @Controller
