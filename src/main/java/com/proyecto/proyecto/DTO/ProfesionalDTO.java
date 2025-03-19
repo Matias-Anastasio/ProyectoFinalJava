@@ -11,6 +11,7 @@ public class ProfesionalDTO {
     private String nombre;
     private String apellido;
     private String especialidad;
+    private String legajo;
     private List<TratamientoDeProfesionalDTO> tratamientos;
     private List<TurnoDeProfesionalDTO> turnos;
 }

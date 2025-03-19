@@ -1,5 +1,6 @@
 package com.proyecto.proyecto.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class UsuarioService {
         return usuarioRepository.findById(id);
     }
 
-    public void agregarUsuario(UsuarioNuevoDTO usuarioNuevoDTO) {
+    public UsuarioDTO agregarUsuario(UsuarioNuevoDTO usuarioNuevoDTO) {
 
         verificarEmail(usuarioNuevoDTO.getEmail());
 
@@ -77,8 +78,9 @@ public class UsuarioService {
         nuevoUsuario.setApellido(usuarioNuevoDTO.getNombre());
         nuevoUsuario.setTelefono(usuarioNuevoDTO.getTelefono());
         nuevoUsuario.setUsername(usuarioNuevoDTO.getUsername());
+        nuevoUsuario.setTurnos(new ArrayList<>());
 
-        usuarioRepository.save(nuevoUsuario);
+        return usuarioRepository.save(nuevoUsuario).toDto();
 
     }
 

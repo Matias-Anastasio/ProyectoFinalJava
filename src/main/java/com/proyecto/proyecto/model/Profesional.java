@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import com.proyecto.proyecto.DTO.ProfesionalDTO;
 import com.proyecto.proyecto.DTO.ProfesionalDatosDTO;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -32,6 +33,8 @@ public class Profesional {
     private String nombre;
     private String apellido;
     private String especialidad;
+    @Column(unique = true, nullable = false)
+    private String legajo;
     
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -51,6 +54,7 @@ public class Profesional {
         pDto.setEspecialidad(especialidad);
         pDto.setTratamientos(tratamientos.stream().map(t->t.toTratamientoDeProfesionalDto()).collect(Collectors.toList()));
         pDto.setTurnos(turnos.stream().map(t->t.toTurnoDeProfesionalDto()).collect(Collectors.toList()));
+        pDto.setLegajo(legajo);
         return pDto;
     }
 
@@ -59,6 +63,7 @@ public class Profesional {
         pDto.setNombre(nombre);
         pDto.setApellido(apellido);
         pDto.setEspecialidad(especialidad);
+        pDto.setLegajo(legajo);
         return pDto;
     }
 }

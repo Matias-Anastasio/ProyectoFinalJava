@@ -78,11 +78,13 @@ public class ProyectoApplication implements CommandLineRunner {
 		profesional1.setNombre("Ana");
 		profesional1.setApellido("Lopez");
 		profesional1.setEspecialidad("Dermatología");
+		profesional1.setLegajo("L1-234");
 
 		Profesional profesional2 = new Profesional();
 		profesional2.setNombre("Carlos");
 		profesional2.setApellido("Diaz");
 		profesional2.setEspecialidad("Fisioterapia");
+		profesional2.setLegajo("L1-235");
 
 		Turno turno1 = new Turno();
 		turno1.setUsuario(usuario1);

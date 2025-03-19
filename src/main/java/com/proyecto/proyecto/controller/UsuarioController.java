@@ -45,8 +45,7 @@ public class UsuarioController {
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevoUsuario(@RequestBody UsuarioNuevoDTO usuarioNuevoDTO) {
         try {
-            usuarioService.agregarUsuario(usuarioNuevoDTO);
-            return ResponseEntity.ok().body("Usuario creado");
+            return ResponseEntity.ok(usuarioService.agregarUsuario(usuarioNuevoDTO));
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
