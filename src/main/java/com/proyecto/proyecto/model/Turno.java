@@ -2,11 +2,9 @@ package com.proyecto.proyecto.model;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 import com.proyecto.proyecto.DTO.TurnoDTO;
 import com.proyecto.proyecto.DTO.TurnoDeProfesionalDTO;
 import com.proyecto.proyecto.DTO.TurnoDeUsuarioDTO;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -29,23 +27,18 @@ public class Turno {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private LocalDate fecha;
     private LocalTime hora;
     private EstadoTurno estado;
-    
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "usuario_id")
     private Usuario usuario;
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "profesional_id", nullable = false)
+    @JoinColumn(name = "profesional_id")
     private Profesional profesional;
-
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "tratamiento_id", nullable = false)
+    @JoinColumn(name = "tratamiento_id")
     private Tratamiento tratamiento;
-
     @OneToOne(mappedBy = "turno", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Pago pago;
 
@@ -55,7 +48,7 @@ public class Turno {
         tDto.setFecha(this.fecha);
         tDto.setHora(this.hora);
         tDto.setEstado(this.estado);
-        tDto.setProfesional(this.profesional.getApellido() + " " + this.profesional.getNombre());
+        tDto.setProfesional(profesional!=null?profesional.getNombre() + " " + profesional.getApellido() : "Profesional no disponible");
         tDto.setTratamiento(this.tratamiento.getNombre());
         return tDto;
     }
@@ -66,11 +59,7 @@ public class Turno {
         tDto.setHora(this.hora);
         tDto.setEstado(this.estado);
         tDto.setTratamiento(this.tratamiento.getNombre());
-        if(usuario!=null){
-        tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
-        }else{
-            tDto.setUsuario("Usuario no disponible");
-        }
+        tDto.setUsuario(usuario!=null?this.usuario.getApellido() + " " + this.usuario.getNombre():"Usuario no disponible");
         return tDto;
     }
 
@@ -79,12 +68,8 @@ public class Turno {
         tDto.setFecha(this.fecha);
         tDto.setHora(this.hora);
         tDto.setEstado(this.estado);
-        if(usuario!=null){
-            tDto.setUsuario(this.usuario.getApellido() + " " + this.usuario.getNombre());
-            }else{
-                tDto.setUsuario("Usuario no disponible");
-            }
-        tDto.setProfesional(this.profesional.getApellido() + " " + this.profesional.getNombre());
+        tDto.setUsuario(usuario!=null?this.usuario.getApellido() + " " + this.usuario.getNombre():"Usuario no disponible");
+        tDto.setProfesional(profesional!=null?profesional.getNombre() + " " + profesional.getApellido() : "Profesional no disponible");
         tDto.setTratamiento(this.tratamiento.getNombre());
         return tDto;
     }

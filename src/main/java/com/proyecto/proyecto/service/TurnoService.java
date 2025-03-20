@@ -50,15 +50,13 @@ public class TurnoService {
     @Transactional
     public void agendarTurno(TurnoNuevoDTO turnoNuevoDTO) {
 
-        // verifico que el usuario, profesional y tratamiento existan
-        Usuario usuario = usuarioService.buscarUsuarioPorId(turnoNuevoDTO.getUsuarioId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        // obtengo el usuario, el profesional y el tratamiento
+        Usuario usuario = usuarioService.buscarUsuario(turnoNuevoDTO.getUsuarioId());
 
-        Profesional profesional = profesionalService.buscarProfesionalPorId(turnoNuevoDTO.getProfesionalId())
-                .orElseThrow(() -> new RuntimeException("Profesional no encontrado"));
+        Profesional profesional = profesionalService.buscarProfesional(turnoNuevoDTO.getProfesionalId());
 
-        Tratamiento tratamiento = tratamientoService.buscarTratamientoPorId(turnoNuevoDTO.getTratamientoId())
-                .orElseThrow(() -> new RuntimeException("Tratamiento no encontrado"));
+        Tratamiento tratamiento = tratamientoService.buscarTratamiento(turnoNuevoDTO.getTratamientoId());
+                
 
         Optional<Turno> turnoExistente = turnoRepository.findByFechaAndHoraAndProfesionalAndEstadoNot(
                 turnoNuevoDTO.getFecha(), turnoNuevoDTO.getHora(), profesional, EstadoTurno.CANCELADO);
@@ -120,12 +118,4 @@ public class TurnoService {
         turnoRepository.save(turno);
     }
 
-    // public void confirmarTurno(long idTurno) {
-    //     Turno turno = turnoRepository.findById(idTurno)
-    //             .orElseThrow(() -> new RuntimeException("Turno no encontrado"));
-
-    //     turno.setEstado(EstadoTurno.CONFIRMADO);
-
-    //     turnoRepository.save(turno);
-    // }
 }

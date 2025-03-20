@@ -3,7 +3,6 @@ package com.proyecto.proyecto.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,18 +50,18 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(usuario -> usuario.toDto()).collect(Collectors.toList());
     }
 
-    public UsuarioDTO buscarUsuario(long id){
-        Usuario usuario = usuarioRepository.findById(id).orElseThrow(()->new RuntimeException("Usuario no encontrado"));
-        return usuario.toDto();
+    public Usuario buscarUsuario(long id) {
+        return usuarioRepository.findById(id).orElseThrow(()->new RuntimeException("Usuario no encontrado"));
+    }
+    
+    public UsuarioDTO buscarUsuarioDTO(long id){
+        return buscarUsuario(id).toDto();
     }
 
     public void guardarUsuario(Usuario usuario) {
         usuarioRepository.save(usuario);
     }
 
-    public Optional<Usuario> buscarUsuarioPorId(long id) {
-        return usuarioRepository.findById(id);
-    }
 
     public UsuarioDTO agregarUsuario(UsuarioNuevoDTO usuarioNuevoDTO) {
 

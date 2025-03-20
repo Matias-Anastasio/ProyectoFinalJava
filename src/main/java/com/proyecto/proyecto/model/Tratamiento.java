@@ -2,10 +2,8 @@ package com.proyecto.proyecto.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.proyecto.proyecto.DTO.TratamientoDTO;
 import com.proyecto.proyecto.DTO.TratamientoDeProfesionalDTO;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -34,6 +32,13 @@ public class Tratamiento {
     @ManyToMany(mappedBy = "tratamientos", fetch = FetchType.EAGER)
     private List<Profesional> profesionales;
 
+    public void agregarProfesional(Profesional profesional){
+        if(!this.getProfesionales().contains(profesional)){
+            this.profesionales.add(profesional);
+        }
+    }
+
+
     public TratamientoDeProfesionalDTO toTratamientoDeProfesionalDto(){
         TratamientoDeProfesionalDTO tDto = new TratamientoDeProfesionalDTO();
         tDto.setNombre(this.nombre);
@@ -51,6 +56,14 @@ public class Tratamiento {
         tDto.setDuracion(this.duracion);
         tDto.setProfesionales(this.profesionales.stream().map(p->p.toProfesionalDatosDto()).collect(Collectors.toList()));
         return tDto;
+    }
+
+
+    public void removerProfesional(Profesional profesional) {
+        if (!profesionales.contains(profesional)) {
+            throw new RuntimeException("El profesional no realiza dicho tratamiento");
+        }
+        profesionales.remove(profesional);
     }
 }
 

@@ -100,7 +100,7 @@ public class ProyectoApplication implements CommandLineRunner {
 		turno2.setProfesional(profesional2);
 		turno2.setFecha(LocalDate.of(2025, 3, 15));
 		turno2.setHora(LocalTime.of(15, 0, 0));
-		turno2.setEstado(EstadoTurno.CONFIRMADO);
+		turno2.setEstado(EstadoTurno.PENDIENTE);
 
 		Pago pago1 = new Pago();
 		pago1.setTurno(turno1);
@@ -114,7 +114,7 @@ public class ProyectoApplication implements CommandLineRunner {
 		pago2.setMonto(turno2.getTratamiento().getPrecio());
 		pago2.setMetodoDePago("Transferencia bancaria");
 		pago2.setFechaDePago(LocalDate.of(2025, 2, 25));
-		pago2.setEstado(EstadoPago.REALIZADO);
+		pago2.setEstado(EstadoPago.PENDIENTE);
 		
 		profesional1.setTratamientos(List.of(tratamiento1));
 		profesional2.setTratamientos(List.of(tratamiento2));

@@ -2,9 +2,10 @@ package com.proyecto.proyecto.model;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import com.proyecto.proyecto.DTO.ProfesionalDTO;
 import com.proyecto.proyecto.DTO.ProfesionalDatosDTO;
+import com.proyecto.proyecto.DTO.ProfesionalTratamientosDTO;
+import com.proyecto.proyecto.DTO.ProfesionalTurnosDTO;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -29,10 +30,10 @@ public class Profesional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String nombre;
     private String apellido;
     private String especialidad;
+    
     @Column(unique = true, nullable = false)
     private String legajo;
     
@@ -46,6 +47,12 @@ public class Profesional {
 
     @OneToMany(mappedBy = "profesional",fetch = FetchType.EAGER)
     private List<Turno> turnos;
+
+    public void agregarTratamiento(Tratamiento tratamiento){
+        if (!this.getTratamientos().contains(tratamiento)) {
+            this.tratamientos.add(tratamiento);
+        }
+    }
 
     public ProfesionalDTO toDto(){
         ProfesionalDTO pDto = new ProfesionalDTO();
@@ -66,5 +73,26 @@ public class Profesional {
         pDto.setLegajo(legajo);
         return pDto;
     }
+
+    public ProfesionalTurnosDTO toProfesionalTurnosDto(){
+        ProfesionalTurnosDTO pDto = new ProfesionalTurnosDTO();
+        pDto.setNombre(nombre);
+        pDto.setApellido(apellido);
+        pDto.setEspecialidad(especialidad);
+        pDto.setLegajo(legajo);
+        pDto.setTurnos(turnos.stream().map(t->t.toTurnoDeProfesionalDto()).collect(Collectors.toList()));
+        return pDto;
+    }
+
+    public ProfesionalTratamientosDTO toProfesionalTratamientosDto(){
+        ProfesionalTratamientosDTO pDto = new ProfesionalTratamientosDTO();
+        pDto.setNombre(nombre);
+        pDto.setApellido(apellido);
+        pDto.setEspecialidad(especialidad);
+        pDto.setLegajo(legajo);
+        pDto.setTratamientos(tratamientos.stream().map(t->t.toTratamientoDeProfesionalDto()).collect(Collectors.toList()));
+        return pDto;
+    }
+
 }
 

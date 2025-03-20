@@ -2,7 +2,6 @@ package com.proyecto.proyecto.controller;
 
 import java.util.Map;
 
-import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -35,7 +34,7 @@ public class UsuarioController {
     @GetMapping("/{id}")
     public ResponseEntity<?> getUsuario(@PathVariable long id){
         try{
-            return ResponseEntity.ok(usuarioService.buscarUsuario(id));
+            return ResponseEntity.ok(usuarioService.buscarUsuarioDTO(id));
         }
         catch(RuntimeException e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -51,7 +50,7 @@ public class UsuarioController {
         }
     }
 
-    @PatchMapping("/modificar/{id}")
+    @PatchMapping("/{id}/modificar")
     public ResponseEntity<?> actualizarUsuario(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
         try {
             UsuarioDTO usuarioActualizado = usuarioService.actualizarUsuario(id, updates);
@@ -62,7 +61,7 @@ public class UsuarioController {
     }
 
     @Transactional
-    @DeleteMapping("/eliminar/{id}")
+    @DeleteMapping("/{id}/eliminar")
     public ResponseEntity<?> eliminarUsuario(@PathVariable Long id) {
         try {
             usuarioService.eliminarUsuario(id);
