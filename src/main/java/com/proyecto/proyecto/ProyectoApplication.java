@@ -64,12 +64,14 @@ public class ProyectoApplication implements CommandLineRunner {
 
 		Tratamiento tratamiento1 = new Tratamiento();
 		tratamiento1.setNombre("Limpieza Facial");
+		tratamiento1.setCodigo("C01-LF");
 		tratamiento1.setDescripcion("Eliminación de impurezas y células muertas");
 		tratamiento1.setDuracion(60);
 		tratamiento1.setPrecio(50.0);
 
 		Tratamiento tratamiento2 = new Tratamiento();
 		tratamiento2.setNombre("Masaje Relajante");
+		tratamiento2.setCodigo("C02-MR");
 		tratamiento2.setDescripcion("Terapia de relajación muscular profunda");
 		tratamiento2.setDuracion(90);
 		tratamiento2.setPrecio(80.0);

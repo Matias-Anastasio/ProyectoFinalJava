@@ -1,5 +1,10 @@
 package com.proyecto.proyecto.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,20 +19,32 @@ import com.proyecto.proyecto.service.TurnoService;
 
 @Controller
 @RequestMapping("/turnos")
+@Tag(name = "Turnos", description = "API para la gestión de turnos")
 public class TurnoController {
 
     @Autowired
     private TurnoService turnoService;
 
     // Mostrar todos los turnos
+    @Operation(summary = "Obtener todos los turnos", description = "Retorna una lista con todos los turnos agendados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Lista de turnos obtenida con éxito"),
+        @ApiResponse(responseCode = "500", description = "Error interno en el servidor")
+    })
     @GetMapping
     public ResponseEntity<?> getTurnos() {
         return ResponseEntity.ok().body(turnoService.buscarTurnos());
     }
 
     // Agendar un nuevo turno
+    @Operation(summary = "Agendar un nuevo turno", description = "Agenda un nuevo turno usando los datos proporcionados")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Turno agendado con éxito"),
+        @ApiResponse(responseCode = "400", description = "Error en los datos proporcionados")
+    })
     @PostMapping("/agendar")
-    public ResponseEntity<?> agendarTurno(@RequestBody TurnoNuevoDTO turnoNuevoDTO) {
+    public ResponseEntity<?> agendarTurno(
+        @Parameter(description = "Objeto que contiene la información del nuevo turno a agendar") @RequestBody TurnoNuevoDTO turnoNuevoDTO) {
         try {
             turnoService.agendarTurno(turnoNuevoDTO);
             return ResponseEntity.ok().body("Turno agendado con éxito");
@@ -37,11 +54,18 @@ public class TurnoController {
     }
 
     // Cancelar un turno
+    @Operation(summary = "Cancelar un turno", description = "Cancela un turno especificado por su ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Turno cancelado con éxito"),
+        @ApiResponse(responseCode = "400", description = "Error al cancelar el turno"),
+        @ApiResponse(responseCode = "404", description = "Turno no encontrado")
+    })
     @PatchMapping("/cancelar/{idTurno}")
-    public ResponseEntity<?> cancelarTurno(@PathVariable Long idTurno) {
+    public ResponseEntity<?> cancelarTurno(
+        @Parameter(description = "ID del turno a cancelar") @PathVariable Long idTurno) {
         try {
             turnoService.cancelarTurno(idTurno);
-            return ResponseEntity.ok("turno Cancelado");
+            return ResponseEntity.ok("Turno Cancelado");
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

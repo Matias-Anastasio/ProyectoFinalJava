@@ -112,8 +112,8 @@ public class UsuarioService {
             }
         });
 
-        usuarioRepository.save(usuario);
-        return usuario.toDto();
+        
+        return usuarioRepository.save(usuario).toDto();
     }
 
     @Transactional
