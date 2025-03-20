@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 import java.util.Map;
 
@@ -24,6 +25,7 @@ import jakarta.transaction.Transactional;
 
 @Controller
 @RequestMapping("/usuarios")
+@Tag(name = "Usuarios", description = "API para la gestión de usuarios")
 public class UsuarioController {
 
     @Autowired

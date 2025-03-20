@@ -15,9 +15,11 @@ import com.proyecto.proyecto.service.PagoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @Controller
 @RequestMapping("/pagos")
+@Tag(name = "Pagos", description = "API para la gestión de pagos")
 public class PagoController {
 
     @Autowired

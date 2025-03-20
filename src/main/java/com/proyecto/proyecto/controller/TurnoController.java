@@ -3,6 +3,7 @@ package com.proyecto.proyecto.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import com.proyecto.proyecto.service.TurnoService;
 
 @Controller
 @RequestMapping("/turnos")
+@Tag(name = "Turnos", description = "API para la gestión de turnos")
 public class TurnoController {
 
     @Autowired
