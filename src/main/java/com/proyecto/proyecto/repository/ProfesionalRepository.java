@@ -8,4 +8,6 @@ import com.proyecto.proyecto.model.Profesional;
 @Repository
 public interface ProfesionalRepository extends JpaRepository<Profesional,Long>{
 
+    boolean existsByLegajo(String legajo);
+
 }

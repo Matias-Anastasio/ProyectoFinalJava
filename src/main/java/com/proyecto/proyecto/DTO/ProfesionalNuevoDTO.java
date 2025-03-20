@@ -1,13 +1,11 @@
 package com.proyecto.proyecto.DTO;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
-public class ProfesionalDatosDTO {
+public class ProfesionalNuevoDTO {
     private String nombre;
     private String apellido;
     private String especialidad;
-    private String legajo;
+    private String Legajo;
 }

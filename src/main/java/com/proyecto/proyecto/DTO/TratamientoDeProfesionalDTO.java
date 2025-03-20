@@ -9,5 +9,5 @@ public class TratamientoDeProfesionalDTO {
     private String nombre;
     private double precio;
     private String descripcion;
-    private double duracion;
+    private int duracion;
 }

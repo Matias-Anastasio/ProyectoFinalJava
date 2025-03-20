@@ -30,6 +30,7 @@ public class Pago {
     private double monto;
     private String metodoDePago;
     private LocalDate fechaDePago;
+    private EstadoPago estado;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "turno_id", nullable = false)
@@ -39,6 +40,7 @@ public class Pago {
         PagoDTO tDto = new PagoDTO();
         tDto.setFechaDePago(fechaDePago);
         tDto.setMetodoDePago(metodoDePago);
+        tDto.setEstado(estado);
         tDto.setMonto(monto);
         tDto.setTurno(turno.toDto());
         return tDto;

@@ -7,11 +7,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class ProfesionalDTO {
+public class ProfesionalTratamientosDTO {
     private String nombre;
     private String apellido;
     private String especialidad;
     private String legajo;
     private List<TratamientoDeProfesionalDTO> tratamientos;
-    private List<TurnoDeProfesionalDTO> turnos;
 }
