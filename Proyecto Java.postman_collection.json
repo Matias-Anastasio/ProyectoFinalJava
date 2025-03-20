@@ -1,0 +1,454 @@
+{
+	"info": {
+		"_postman_id": "7b0c748f-c3b4-4941-9c49-9c26bddec439",
+		"name": "Proyecto Java",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30463877"
+	},
+	"item": [
+		{
+			"name": "usuarios",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuarios",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/eliminar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuarios/2/eliminar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"2",
+						"eliminar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/nuevo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Matias\",\r\n    \"apellido\":\"Anastasio\",\r\n    \"username\":\"MatiasAnastasio\",\r\n    \"email\":\"matuanastasio@gmail.com\",\r\n    \"telefono\":\"+541131972218\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/nuevo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"nuevo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "usuarios/modificar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Tomas\",\r\n    \"email\":\"tomas.perez@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuarios/1/modificar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuarios",
+						"1",
+						"modificar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/turnos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos/agendar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"fecha\": \"2025-03-10\",\r\n  \"hora\": \"16:00\",\r\n  \"usuarioId\": 1,\r\n  \"profesionalId\": 2,\r\n  \"tratamientoId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos/agendar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"agendar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "turnos/cancelar",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/turnos/cancelar/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"cancelar",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pagos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pagos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pagos/pagar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"metodoDePago\": \"Efectivo\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pagos/pagar/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pagos",
+						"pagar",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tratamientos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/tratamientos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tratamientos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tratamientos/agregar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\":\"C03-TA\",\r\n    \"nombre\":\"Tratamiento Antiacné\",\r\n    \"descripcion\":\"Reduce la inflamación y previene la aparición de nuevas imperfecciones.\",\r\n    \"duracion\":45,\r\n    \"precio\":60.0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tratamientos/agregar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tratamientos",
+						"agregar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/profesionales",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales/turnos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/profesionales/1/turnos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales",
+						"1",
+						"turnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales/tratamientos",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/profesionales/1/turnos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales",
+						"1",
+						"turnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales/nuevo",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Matias\",\r\n    \"apellido\":\"Anastasio\",\r\n    \"especialidad\":\"clinico\",\r\n    \"legajo\":\"L1-237\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/profesionales/nuevo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales",
+						"nuevo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales/agregarTratamiento",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\":\"Matias\",\r\n    \"apellido\":\"Anastasio\",\r\n    \"especialidad\":\"clinico\",\r\n    \"legajo\":\"L1-237\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/profesionales/nuevo",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales",
+						"nuevo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "profesionales/eliminar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/profesionales/1/eliminar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"profesionales",
+						"1",
+						"eliminar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tratamientos/modificar",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"precio\": 100.0,\r\n    \"duracion\":120\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/tratamientos/1/modificar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"tratamientos",
+						"1",
+						"modificar"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
