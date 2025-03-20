@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import com.proyecto.proyecto.DTO.TratamientoDTO;
 import com.proyecto.proyecto.DTO.TratamientoDeProfesionalDTO;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,8 @@ public class Tratamiento {
 
     private String nombre;
     private double precio;
+    @Column(unique = true, nullable = false)
+    private String codigo;
     private String descripcion;
     private int duracion;
     

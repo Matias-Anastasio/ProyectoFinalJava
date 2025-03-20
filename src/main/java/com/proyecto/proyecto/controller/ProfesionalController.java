@@ -2,29 +2,29 @@ package com.proyecto.proyecto.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.proyecto.proyecto.DTO.ProfesionalNuevoDTO;
 import com.proyecto.proyecto.service.ProfesionalService;
 
-@Controller
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
+@RestController
 @RequestMapping("/profesionales")
+@Tag(name = "Profesionales", description = "Controlador para gestionar profesionales")
 public class ProfesionalController {
 
     @Autowired
     private ProfesionalService profesionalService;
 
+    @Operation(summary = "Obtener todos los profesionales", description = "Devuelve la lista de todos los profesionales registrados")
     @GetMapping
     public ResponseEntity<?> getProfesionales(){
         return ResponseEntity.ok().body(profesionalService.buscarProfesionales());
     }
 
+    @Operation(summary = "Agregar un nuevo profesional", description = "Crea un nuevo profesional con los datos proporcionados")
     @PostMapping("/nuevo")
     public ResponseEntity<?> addProfesional(@RequestBody ProfesionalNuevoDTO profesionalNuevoDTO){
         try{
@@ -35,6 +35,7 @@ public class ProfesionalController {
         }
     }
 
+    @Operation(summary = "Asignar un tratamiento a un profesional", description = "Asocia un tratamiento existente a un profesional")
     @PostMapping("/{idProfesional}/agregarTratamiento/{idTratamiento}")
     public ResponseEntity<?> addTratamiento(@PathVariable long idProfesional, @PathVariable long idTratamiento){
         try {
@@ -44,6 +45,7 @@ public class ProfesionalController {
         }
     }
 
+    @Operation(summary = "Obtener turnos de un profesional", description = "Devuelve la lista de turnos de un profesional específico")
     @GetMapping("/{id}/turnos")
     public ResponseEntity<?> getProfesionalTurnos(@PathVariable long id){
         try{
@@ -54,6 +56,7 @@ public class ProfesionalController {
         }
     }
 
+    @Operation(summary = "Obtener tratamientos de un profesional", description = "Devuelve la lista de tratamientos de un profesional específico")
     @GetMapping("/{id}/tratamientos")
     public ResponseEntity<?> getProfesionalTratamientos(@PathVariable long id){
         try{
@@ -64,6 +67,7 @@ public class ProfesionalController {
         }
     }
 
+    @Operation(summary = "Eliminar un profesional", description = "Elimina un profesional basado en su ID")
     @DeleteMapping("/{id}/eliminar")
     public ResponseEntity<?> deleteProfesional(@PathVariable long id){
         try {

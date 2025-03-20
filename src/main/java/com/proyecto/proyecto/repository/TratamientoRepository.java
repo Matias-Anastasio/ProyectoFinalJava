@@ -8,4 +8,6 @@ import com.proyecto.proyecto.model.Tratamiento;
 @Repository
 public interface TratamientoRepository extends JpaRepository<Tratamiento,Long>{
 
+    boolean existsByCodigo(String codigo);
+
 }
